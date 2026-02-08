@@ -1,0 +1,31 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+}
+html {
+  background: #212121;
+}
+
+.note {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  max-width: 20rem;
+  justify-content: center;
+  background-color: #ec0000;
+  color: white;
+}
+.notes {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  padding-block: 1rem;
+  padding-inline: 3rem;
+}
