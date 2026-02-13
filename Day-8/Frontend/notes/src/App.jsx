@@ -1,36 +1,48 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 function App() {
-  const [notes, setNotes] = useState([
-    {
-      title: "test title 1",
-      discription: "test discription 1",
-    },
-    {
-      title: "test title 2",
-      discription: "test discription 2",
-    },
-    {
-      title: "test title 3",
-      discription: "test discription 3",
-    },
-    {
-      title: "test title 4",
-      discription: "test discription 4",
-    },
-  ]);
+  const [notes, setNotes] = useState([]);
 
-  axios.get('http://localhost:3000/api/notes').then((res) => {
-   setNotes(res.data.notes);
-  });
+  function fetchHandler() {
+    axios.get("http://localhost:5000/api/notes").then((res) => {
+      console.log(res.data);
+      setNotes(res.data.note);
+    });
+  }
+  function submitHandler(e) {
+    const { title, description } = e.target.elements;
+    axios
+      .post("http://localhost:5000/api/notes", {
+        title: title.value,
+        description: description.value,
+      })
+      .then((res) => {
+        console.log(res.data);
+        fetchHandler();
+      });
+  }
+
+  useEffect(() => {
+    fetchHandler();
+  }, []);
 
   return (
     <>
+      <form className="input-field" onSubmit={submitHandler}>
+        <input type="text" required name="title" placeholder="title" />
+        <input
+          type="text"
+          required
+          name="description"
+          placeholder="description"
+        />
+        <button>Create Note</button>
+      </form>
       <div className="notes">
-        {notes.map((note) => {
+        {notes.map((note, idx) => {
           return (
-            <div className="note">
+            <div key={idx} className="note">
               <h1>{note.title}</h1>
               <p>{note.discription}</p>
             </div>
