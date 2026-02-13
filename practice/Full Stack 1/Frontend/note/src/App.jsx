@@ -5,7 +5,7 @@ function App() {
   const [notes, setNotes] = useState([]);
   
   function getData() {
-    axios.get("http://localhost:3000/api/notes").then((res) => {
+    axios.get("https://node-l1id.onrender.com/api/notes").then((res) => {
 
       
       setNotes(res.data.note);
@@ -20,7 +20,7 @@ function App() {
     e.preventDefault();
     const { title, description } = e.target.elements;
     axios
-      .post("http://localhost:3000/api/notes", {
+      .post("https://node-l1id.onrender.com/api/notes", {
         title: title.value,
         description: description.value,
       })
@@ -31,7 +31,7 @@ function App() {
   }
 
   function deleteNote(id) {
-    axios.delete("http://localhost:3000/api/notes/" + id).then((res) => {
+    axios.delete("https://node-l1id.onrender.com/api/notes/" + id).then((res) => {
       console.log(res.data);
       getData();
     });
@@ -42,7 +42,7 @@ function App() {
   function updateHandler(id, description) {
     const newDescription = prompt();
     axios
-      .patch("http://localhost:3000/api/notes/" + id, {
+      .patch("https://node-l1id.onrender.com/api/notes/" + id, {
         description: newDescription,
       })
       .then((res) => {
